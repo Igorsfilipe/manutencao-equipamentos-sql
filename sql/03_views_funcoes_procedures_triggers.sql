@@ -157,7 +157,6 @@ BEGIN
     SELECT Quantidade_Estoque INTO v_stock
     FROM Pecas
     WHERE ID_Peca = NEW.ID_Peca;
-
     IF v_stock < NEW.Quantidade THEN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'Stock insuficiente para a peça pedida.';
@@ -210,13 +209,10 @@ BEGIN
     IF NOT EXISTS (SELECT 1 FROM Equipamentos WHERE ID_Equipamento = p_id_equipamento) THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Equipamento inexistente.';
     END IF;
-
     INSERT INTO Ordens_Servico (ID_Equipamento, Descricao_Problema, Prioridade,
                                 Data_Abertura, Estado_OS)
     VALUES (p_id_equipamento, p_descricao, p_prioridade, CURDATE(), 'Aberta');
-
     SET p_id_os = LAST_INSERT_ID();
-
     IF p_prioridade IN ('Alta', 'Crítica') THEN
         UPDATE Equipamentos
         SET Estado_Equipamento = 'Avariado'
@@ -234,29 +230,23 @@ CREATE PROCEDURE sp_fechar_os(IN p_id_os INT)
 BEGIN
     DECLARE v_estado VARCHAR(20);
     DECLARE v_equip  INT;
-
     SELECT Estado_OS, ID_Equipamento INTO v_estado, v_equip
     FROM Ordens_Servico
     WHERE ID_OS = p_id_os;
-
     IF v_estado IS NULL THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Ordem de serviço inexistente.';
     END IF;
-
     IF v_estado IN ('Concluída', 'Cancelada') THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'A ordem de serviço já está encerrada.';
     END IF;
-
     IF NOT EXISTS (SELECT 1 FROM Intervencoes WHERE ID_OS = p_id_os) THEN
         SIGNAL SQLSTATE '45000'
             SET MESSAGE_TEXT = 'Não é possível fechar uma OS sem intervenções registadas.';
     END IF;
-
     UPDATE Ordens_Servico
     SET Estado_OS  = 'Concluída',
         Data_Fecho = GREATEST(CURDATE(), Data_Abertura)
     WHERE ID_OS = p_id_os;
-
     IF NOT EXISTS (SELECT 1 FROM Ordens_Servico
                    WHERE ID_Equipamento = v_equip
                      AND Estado_OS IN ('Aberta', 'Em Execução')) THEN

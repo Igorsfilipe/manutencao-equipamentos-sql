@@ -72,8 +72,8 @@ As regras de coerência são:
 
 ```
 docs/
-├── diagrama_conceptual.png / .svg         Modelo entidade-relacionamento
-└── diagrama_logico.png / .svg             Tabelas, tipos e chaves
+├── diagrama_conceptual.png                Modelo entidade-relacionamento
+└── diagrama_logico.png                    Tabelas, tipos e chaves
 sql/
 ├── 01_criacao_base_dados.sql              Tabelas, chaves, CHECK, UNIQUE, índices
 ├── 02_insercao_dados.sql                  Dados de 2024
@@ -224,4 +224,4 @@ docker exec -i mysql-manutencao mysql -uroot -p'escolha_uma_password' -t < sql/0
 
 ## Autor
 
-**[Igors Cardoso]** · [LinkedIn](https://linkedin.com/in/igors-cardoso) · [GitHub](https://github.com/Igorsfilipe)
+**Igors Cardoso** · [LinkedIn](https://linkedin.com/in/igors-cardoso) · [GitHub](https://github.com/Igorsfilipe)

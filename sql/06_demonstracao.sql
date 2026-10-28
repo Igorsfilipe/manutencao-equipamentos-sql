@@ -42,7 +42,7 @@ ROLLBACK;  -- desfaz tudo o que foi feito acima
 -- =====================================================================
 -- TESTES DE REGRAS DE NEGÓCIO
 -- Cada comando abaixo DEVE FALHAR com uma mensagem clara.
--- Execute-os um a um (no MySQL Workbench: seleccionar a linha e Ctrl+Enter).
+-- Para testar: retirar o "--" de um comando e executá-lo sozinho (DBeaver: Ctrl+Enter).
 -- =====================================================================
 
 -- Stock insuficiente (trigger trg_ip_valida_stock) → Error Code: 1644
