@@ -217,6 +217,7 @@ docker exec -i mysql-manutencao mysql -uroot -p'escolha_uma_password' -t < sql/0
 ## Próximos passos
 
 - Dashboard em **Power BI** ligado às views `vw_os_detalhe`, `vw_custos_por_equipamento` e `vw_stock_critico`.
+- https://app.powerbi.com/links/5I3ZHvq6ZC?ctid=51582d73-a37e-4b71-a24d-4ba0eb6b45d3&pbi_source=linkShare
 - Tabela de auditoria com o histórico de mudanças de estado das OS, alimentada por trigger.
 - Planos de manutenção preventiva com geração automática de OS através de um `EVENT` agendado.
 
